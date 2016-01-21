@@ -21,19 +21,37 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
+
 import Foundation
 
+/**
+ Repeating timer based on Grand Central Dispatch. [GitHub link](https://github.com/JuanPabloBoero/JBTimer/)
+ 
+ - Parameter timeInSecs: An integer that defines the desired repeating time in seconds.
+ - Parameter closure: closure that will execute the tasks defined inside.
+ - Returns: `Void`
+ - Version: 1.0
+ - Author: Juan Pablo Boero Alvarez
+ */
 class JBTimer {
     
     var timer: dispatch_source_t!
     
-    func repeateTimer(timeInSecs: Double, closure:()->Void) {
+    
+    /**
+     Starts the repeating timer each time that `timeInSecs` lapses.
+     
+     - Parameter timeInSecs: An integer that defines the desired repeating time in seconds.
+     - Parameter closure: closure closure that will execute the tasks defined inside.
+     
+     */
+    func repeateTimer(timeInSecs: Int, closure:()->Void) {
         
         let queue = dispatch_queue_create("com.domain.app.timer", nil)
         
         timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue)
         
-        dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, UInt64(timeInSecs * Double(NSEC_PER_SEC)), 1 * NSEC_PER_SEC) // with leeway of 1 second
+        dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, UInt64(Double(timeInSecs) * Double(NSEC_PER_SEC)), 1 * NSEC_PER_SEC) // with leeway of 1 second
         
         dispatch_source_set_event_handler(timer, closure)
         
@@ -41,6 +59,9 @@ class JBTimer {
         
     }
     
+    /**
+     Stops the repeating timer.
+     */
     func stopTimer() {
         dispatch_source_cancel(timer)
         timer = nil
