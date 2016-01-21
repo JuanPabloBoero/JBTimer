@@ -45,6 +45,7 @@ myTimer.repeateTimer(10) { () -> Void in
 If you use it on a non global scope(local variable), for example inside an `if` statement, it will only work 
 while in that scope, for example if you want the timer to live while in a `ViewController` declare the object 
 at a class scope variable.
+
 This timer was ment for cpu cycles efficiency, so **IT IS NOT TIME CRITICAL**, dont use it on things you need time critic response, also it has a [**leeway**](https://developer.apple.com/library/mac/documentation/General/Conceptual/ConcurrencyProgrammingGuide/GCDWorkQueues/GCDWorkQueues.html) of 1 second to improve energy use. It gets more exact when the cpu is less busy, you can do tests using NSLog and comparing timestamps of fired events.
 
 #Suggestion:
