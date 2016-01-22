@@ -63,7 +63,12 @@ class JBTimer {
      Stops the repeating timer.
      */
     func stopTimer() {
-        dispatch_source_cancel(timer)
+        
+        if timer != nil{
+         
+            dispatch_source_cancel(timer)
+            
+        }
         timer = nil
     }
     
