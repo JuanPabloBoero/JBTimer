@@ -45,7 +45,7 @@ class JBTimer {
      - Parameter closure: closure closure that will execute the tasks defined inside.
      
      */
-    func repeateTimer(timeInSecs: Int, closure:()->Void) {
+    func repeateTimer(timeInSecs timeInSecs: Int, closure:()->Void) {
         
         let queue = dispatch_queue_create("com.domain.app.timer", nil)
         
