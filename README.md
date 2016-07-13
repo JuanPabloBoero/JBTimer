@@ -9,7 +9,7 @@ and Rob [answer](http://stackoverflow.com/a/25952724/1634890).
 # Usage:
 
 1. Add JBTimer.swift to your project (drag and drop)
-2. From your ViewController(or wherever you might want to use it) add a variable:
+2. From your ViewController(or wherever you might want to use it):
 
   `let myTimer = JBTimer()`
   
@@ -18,7 +18,7 @@ and Rob [answer](http://stackoverflow.com/a/25952724/1634890).
 ```
 //Where 2 is seconds, for closure auto-creation hit enter when suggestion is over it, 
 //you have to handle weak or unowned self.
-myTimer.repeateTimer(2) { [weak self] () -> Void in
+myTimer.repeateTimer(timeInSecs: 2) { [weak self] () -> Void in
             
             //Do your stuff inside this closure
             
@@ -30,7 +30,7 @@ myTimer.repeateTimer(2) { [weak self] () -> Void in
 
 4. Later on you can modify the object:
 ```
-myTimer.repeateTimer(10) { () -> Void in
+myTimer.repeateTimer(timeInSecs: 10) { () -> Void in
             
             //Do your stuff inside this closure
             
