@@ -1,5 +1,5 @@
 # JBTimer
-Swift Grand Central Dispatch Repeating Timer.
+Swift 2.3 Grand Central Dispatch Repeating Timer.
 
 Ment for repeating tasks without the overhead of NSTimer.
 
