@@ -37,7 +37,6 @@ class JBTimer {
     
     var timer: dispatch_source_t!
     
-    
     /**
      Starts the repeating timer each time that `timeInSecs` lapses.
      
@@ -46,30 +45,20 @@ class JBTimer {
      
      */
     func repeateTimer(timeInSecs timeInSecs: Int, closure:()->Void) {
-        
         let queue = dispatch_queue_create("com.domain.app.timer", nil)
-        
         timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue)
-        
-        dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, UInt64(Double(timeInSecs) * Double(NSEC_PER_SEC)), 1 * NSEC_PER_SEC) // with leeway of 1 second
-        
+        dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, UInt64(timeInSecs) * NSEC_PER_SEC, 1 * NSEC_PER_SEC) // with leeway of 1 second
         dispatch_source_set_event_handler(timer, closure)
-        
         dispatch_resume(timer)
-        
     }
     
     /**
      Stops the repeating timer.
      */
     func stopTimer() {
-        
         if timer != nil{
-         
             dispatch_source_cancel(timer)
-            
         }
         timer = nil
     }
-    
 }
