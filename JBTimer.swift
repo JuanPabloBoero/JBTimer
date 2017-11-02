@@ -27,38 +27,37 @@ import Foundation
 /**
  Repeating timer based on Grand Central Dispatch. [GitHub link](https://github.com/JuanPabloBoero/JBTimer/)
  
- - Parameter timeInSecs: An integer that defines the desired repeating time in seconds.
+ - Parameter timeInMilliSecs: An integer that defines the desired repeating time in milliseconds.
  - Parameter closure: closure that will execute the tasks defined inside.
  - Returns: `Void`
- - Version: 1.0
+ - Version: 4.0
  - Author: Juan Pablo Boero Alvarez
  */
 class JBTimer {
     
-    var timer: dispatch_source_t!
+    fileprivate var timerObject: DispatchSourceTimer?
     
     /**
-     Starts the repeating timer each time that `timeInSecs` lapses.
+     Starts the repeating timer each time that `timeInMilliSecs` lapses.
      
-     - Parameter timeInSecs: An integer that defines the desired repeating time in seconds.
-     - Parameter closure: closure closure that will execute the tasks defined inside.
+     - Parameter timeInMilliSecs: An integer that defines the desired repeating time in milliseconds.
+     - Parameter closure: closure that will execute the tasks defined inside.
      
      */
-    func repeateTimer(timeInSecs timeInSecs: Int, closure:()->Void) {
-        let queue = dispatch_queue_create("com.domain.app.timer", nil)
-        timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue)
-        dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, UInt64(timeInSecs) * NSEC_PER_SEC, 1 * NSEC_PER_SEC) // with leeway of 1 second
-        dispatch_source_set_event_handler(timer, closure)
-        dispatch_resume(timer)
+    func repeateTimer(timeInMilliSecs: Int, closure: @escaping ()->Void) {
+        let queue = DispatchQueue(label: "com.domain.app.timer", attributes: .concurrent)
+        timerObject?.cancel()        // cancel previous timer if any
+        timerObject = DispatchSource.makeTimerSource(queue: queue)
+        timerObject?.schedule(deadline: DispatchTime.now(), repeating: DispatchTimeInterval.milliseconds(timeInMilliSecs), leeway: DispatchTimeInterval.seconds(1))
+        timerObject?.setEventHandler(handler: closure)
+        timerObject?.resume()
     }
     
     /**
      Stops the repeating timer.
      */
     func stopTimer() {
-        if timer != nil{
-            dispatch_source_cancel(timer)
-        }
-        timer = nil
+        timerObject?.cancel()
+        timerObject = nil
     }
 }
