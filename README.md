@@ -1,7 +1,7 @@
 # JBTimer
-Swift 2.3 Grand Central Dispatch Repeating Timer.
+Swift 4 Grand Central Dispatch Repeating Timer.
 
-Ment for repeating tasks without the overhead of NSTimer.
+Ment for repeating tasks without the overhead of Timer.
 
 Based on [this](http://stackoverflow.com/q/25951980/1634890) StackOverFlow question 
 and Rob [answer](http://stackoverflow.com/a/25952724/1634890).
@@ -16,9 +16,9 @@ and Rob [answer](http://stackoverflow.com/a/25952724/1634890).
 3. Then you can start it like this:
 
 ```
-//Where 2 is seconds, for closure auto-creation hit enter when suggestion is over it, 
+//Where 500 is milliseconds, for closure auto-creation hit enter when suggestion is over it, 
 //you have to handle weak or unowned self.
-myTimer.repeateTimer(timeInSecs: 2) { [weak self] () -> Void in
+myTimer.repeateTimer(timeInMilliSecs: 500) { [weak self] () -> Void in
             
             //Do your stuff inside this closure
             
@@ -30,7 +30,7 @@ myTimer.repeateTimer(timeInSecs: 2) { [weak self] () -> Void in
 
 4. Later on you can modify the object:
 ```
-myTimer.repeateTimer(timeInSecs: 10) { () -> Void in
+myTimer.repeateTimer(timeInMilliSecs: 1000) { () -> Void in
             
             //Do your stuff inside this closure
             
